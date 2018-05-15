@@ -1,0 +1,30 @@
+{
+  "name": "bide",
+  "version": "0.0.0",
+  "description": "A linear a/sync values solver",
+  "browser": "min.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "scripts": {
+    "build": "npm run min && npm test",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "min": "echo \"/*! (c) 2018 Andrea Giammarchi (ISC) */$(uglifyjs index.js -c -m)\" > min.js",
+    "size": "cat index.js | wc -c;cat min.js | wc -c;gzip -c9 min.js | wc -c;cat min.js | brotli | wc -c && rm -f min.js.br",
+    "test": "istanbul cover test/index.js"
+  },
+  "keywords": [
+    "async",
+    "chain",
+    "linear",
+    "promise",
+    "sequence"
+  ],
+  "author": "Andrea Giammarchi",
+  "license": "ISC",
+  "devDependencies": {
+    "coveralls": "^3.0.1",
+    "istanbul": "^0.4.5",
+    "tressa": "^0.3.1",
+    "uglify-es": "^3.3.9"
+  }
+}
