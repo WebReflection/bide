@@ -80,4 +80,33 @@ tressa.async(next => {
       next();
     });
   }, 100);
+}))
+.then(() => tressa.async(next => {
+
+  function asyncTag(template, ...values) {
+    return new Promise((res, rej) => {
+      let i = 1;
+      const length = template.length;
+      const out = [];
+      const bode = bide({
+        next(value) { out.push(value); },
+        done(err) {
+          if (err) rej(err);
+          else if (i === length) res(out.join(''));
+        }
+      });
+      for (bode.by(template[0]); i < length; i++)
+        bode.by(values[i - 1], template[i]);
+    });
+  }
+
+  asyncTag`a${
+    new Promise(res => setTimeout(res, 10, 'b'))
+  }c${
+    new Promise(res => setTimeout(res, 1, 'd'))
+  }e`.then(text => {
+    tressa.assert(text === 'abcde', 'correct output');
+    next();
+  });
+
 }));
