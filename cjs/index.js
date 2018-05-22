@@ -39,18 +39,20 @@ module.exports = function (options) { if (!options) options = {};
             const result = queue.shift();
             if (isPromise(result)) {
               result.then(
-                function (value) { unshiftThen(queue, next(value), resolve) },
+                function (value) {
+                  unshiftThen(queue, next.call(options, value), resolve);
+                },
                 function (error) {
                   queue.splice(0);
                   status = 'rejected';
-                  after(error);
+                  after.call(options, error);
                 }
               );
             } else
-              unshiftThen(queue, next(result), resolve);
+              unshiftThen(queue, next.call(options, result), resolve);
           } else {
             status = 'resolved';
-            after();
+            after.call(options);
           }
         }());
       }

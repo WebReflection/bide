@@ -39,18 +39,18 @@ export default (options = {}) => {
             const result = queue.shift();
             if (isPromise(result)) {
               result.then(
-                value => unshiftThen(queue, next(value), resolve),
+                value => unshiftThen(queue, next.call(options, value), resolve),
                 error => {
                   queue.splice(0);
                   status = 'rejected';
-                  after(error);
+                  after.call(options, error);
                 }
               );
             } else
-              unshiftThen(queue, next(result), resolve);
+              unshiftThen(queue, next.call(options, result), resolve);
           } else {
             status = 'resolved';
-            after();
+            after.call(options);
           }
         }());
       }
