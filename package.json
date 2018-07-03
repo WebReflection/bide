@@ -1,6 +1,6 @@
 {
   "name": "bide",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A linear a/sync values solver",
   "unpkg": "min.js",
   "main": "cjs/index.js",
