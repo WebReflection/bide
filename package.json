@@ -2,7 +2,7 @@
   "name": "bide",
   "version": "0.2.0",
   "description": "A linear a/sync values solver",
-  "browser": "min.js",
+  "unpkg": "min.js",
   "main": "cjs/index.js",
   "module": "esm/index.js",
   "scripts": {
